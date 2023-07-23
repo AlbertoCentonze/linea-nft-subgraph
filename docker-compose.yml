@@ -1,9 +1,5 @@
 version: '3'
 services:
-  hardhat:
-    build: ./contracts/docker
-    ports:
-      - "8545:8545"
   graph-node:
     image: graphprotocol/graph-node:v0.29.0
     ports:
@@ -13,7 +9,6 @@ services:
       - '8030:8030'
       - '8040:8040'
     depends_on:
-      - hardhat
       - ipfs
       - postgres
     environment:
@@ -22,7 +17,7 @@ services:
       postgres_pass: let-me-in
       postgres_db: graph-node
       ipfs: 'ipfs:5001'
-      ethereum: 'localhost:http://hardhat:8545'
+      ethereum: 'linea-goerli:https://linea-goerli.infura.io/v3/25db703dc90b46e38b483d848ee0443d'
       GRAPH_LOG: info
       ## Uncomment next line if you want to use debug forking: https://thegraph.com/docs/en/cookbook/subgraph-debug-forking/
       # fork_base: https://api.thegraph.com/subgraphs/id/
