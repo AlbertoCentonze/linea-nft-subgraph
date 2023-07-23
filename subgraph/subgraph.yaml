@@ -4,10 +4,9 @@ schema:
 dataSources:
   - kind: ethereum
     name: MyNFT
-    network: localhost
+    network: linea-goerli
     source:
       abi: MyNFT
-      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -20,10 +19,8 @@ dataSources:
         - name: MyNFT
           file: ./abis/MyNFT.json
       eventHandlers:
-        - event: Approval(indexed address,indexed address,indexed uint256)
-          handler: handleApproval
-        - event: ApprovalForAll(indexed address,indexed address,bool)
-          handler: handleApprovalForAll
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: ./src/my-nft.ts
+      file: ./src/mapping.ts
+features:
+  - ipfsOnEthereumContracts

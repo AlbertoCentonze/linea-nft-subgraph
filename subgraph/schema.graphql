@@ -1,29 +1,24 @@
-type Approval @entity(immutable: true) {
+type Token @entity {
   id: Bytes!
-  owner: Bytes! # address
-  approved: Bytes! # address
-  tokenId: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  contract: TokenContract!
+  tokenID: BigInt!
+  owner: Owner!
+  tokenURI: String
 }
 
-type ApprovalForAll @entity(immutable: true) {
+type TokenContract @entity {
   id: Bytes!
-  owner: Bytes! # address
-  operator: Bytes! # address
-  approved: Boolean! # bool
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  name: String,
+  symbol: String,
+  # supportsEIP721Metadata: Boolean!
+  tokens: [Token!]! @derivedFrom(field: "contract")
+  # numTokens: BigInt!
+  # numOwners: BigInt!
 }
 
-type Transfer @entity(immutable: true) {
+type Owner @entity {
   id: Bytes!
-  from: Bytes! # address
-  to: Bytes! # address
-  tokenId: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  address: Bytes!
+  tokens: [Token!]! @derivedFrom(field: "owner")
+  # numTokens: BigInt!
 }
